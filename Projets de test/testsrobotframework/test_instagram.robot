@@ -24,6 +24,6 @@ Vérifier le Lien Instagram
 
     # Vérifier si on est bien sur Instagram
     ${current_url} =    Get Location
-    Should Contain    ${current_url}    instagramme.com
+    Should Contain    ${current_url}    instagram.com
 
     Close Browser
