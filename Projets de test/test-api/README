@@ -1,0 +1,11 @@
+# 🚀 Test d'une API avec Postman
+
+Ce projet contient une **API** construite avec **Express** et des tests réalisés avec **Postman** pour valider le bon fonctionnement de l'API.
+
+## 📁 Détails du projet
+- **API** : L'API est contenue dans le fichier `server.js`. Elle gère la création, la modification et la suppression d'employés via des requêtes HTTP.
+- **Tests Postman** : Les tests pour cette API sont réalisés dans le fichier `Serie de test sur Postman.json`. Ce fichier contient une suite de tests qui valide chaque endpoint de l'API.
+
+📄 **Tester l'API avec Postman** :
+1. Importer le fichier `Serie de test sur Postman.json` dans Postman.
+2. Exécuter la collection de tests pour valider le bon fonctionnement des endpoints de l'API.
