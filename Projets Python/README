@@ -13,7 +13,7 @@ Le jeu consiste à contrôler un héros avec des points de vie et des potions. L
 ## 📋 Exécution du jeu :
 1. Clonez le projet :
    ```bash
-   git clone https://github.com/Bagzy3/jeu-combat-python.git
+   git clone https://github.com/Bagzy3/jeu-combat.git
    ```
 
 2. Exécutez le script :
