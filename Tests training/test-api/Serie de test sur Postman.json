@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "9887ca54-c193-42c1-9b86-58b9c93376b0",
+		"name": "Serie de test API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "42854041"
+	},
+	"item": [
+		{
+			"name": "Test POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Le statut doit être 201 Created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// 2. Vérifier que la réponse est un objet JSON\r",
+							"pm.test(\"La réponse doit être en JSON\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Le nom de l'employé doit être Marie\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.employee.name).to.eql(\"Marie\");\r",
+							"});\r",
+							"pm.test(\"La requête POST doit répondre rapidement\", function () {\r",
+							"    // Définir un seuil en millisecondes (par exemple 200 ms)\r",
+							"    var responseTime = pm.response.responseTime;\r",
+							"    \r",
+							"    // Vérifie que le temps de réponse est inférieur à 200 ms\r",
+							"    pm.expect(responseTime).to.be.below(200, \"La requête prend trop de temps\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Marie\",\r\n    \"position\":\"Dev\",\r\n    \"email\":\"ffef@hotmail.fr\"\r\n    \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/employees/"
+			},
+			"response": []
+		},
+		{
+			"name": "Test GET général",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Vérifie que le statut de la réponse est bien 200 OK\r",
+							"pm.test(\"Le statut doit être 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// 2. Vérifier que la réponse est un objet JSON\r",
+							"pm.test(\"La réponse doit être en JSON\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// Vérifie que la réponse est bien un tableau d'employés\r",
+							"pm.test(\"La réponse doit être un tableau\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"// Vérifie que la liste des employés n'est pas vide\r",
+							"pm.test(\"La liste des employés ne doit pas être vide\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"// Vérifie que chaque employé a bien un ID, un nom, un poste et un email\r",
+							"pm.test(\"Chaque employé doit avoir un ID, un nom, un poste et un email\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach(employee => {\r",
+							"        pm.expect(employee).to.have.property(\"id\");\r",
+							"        pm.expect(employee).to.have.property(\"name\");\r",
+							"        pm.expect(employee).to.have.property(\"position\");\r",
+							"        pm.expect(employee).to.have.property(\"email\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/employees"
+			},
+			"response": []
+		},
+		{
+			"name": "Test PUT ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1. Vérifier que le statut de réponse est bien 200\r",
+							"pm.test(\"Statut de la requête doit être 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// 2. Vérifier que la réponse est un objet JSON\r",
+							"pm.test(\"La réponse doit être en JSON\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// 3. Vérifier que le message de confirmation est correct\r",
+							"pm.test(\"Le message doit être 'Employé mis à jour'\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Employé mis à jour\");\r",
+							"});\r",
+							"\r",
+							"// 4. Vérifier que l'objet employé retourné contient bien les nouvelles données\r",
+							"pm.test(\"Les données mises à jour doivent être correctes\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.employee.name).to.eql(\"Alice\");\r",
+							"    pm.expect(jsonData.employee.position).to.eql(\"Lead Développeur\");\r",
+							"    pm.expect(jsonData.employee.email).to.eql(\"alice.durand@example.com\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alice\",\r\n    \"position\": \"Lead Développeur\",\r\n    \"email\": \"alice.durand@example.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/employees/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Test PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Le statut de la réponse doit être 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// 2. Vérifier que la réponse est un objet JSON\r",
+							"pm.test(\"La réponse doit être en JSON\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Le message doit être 'Employé mis à jour partiellement'\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Employé mis à jour partiellement\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La position de l'employé doit être mise à jour\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.employee.position).to.eql(\"Senior Développeur\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"position\": \"Senior Développeur\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/employees/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Test DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Fixed the error in the request\r",
+							"pm.test(\"Le statut de la réponse doit être 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// 2. Vérifier que la réponse est un objet JSON\r",
+							"pm.test(\"La réponse doit être en JSON\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Le message doit être 'Employé supprimé avec succès'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Employé supprimé avec succès\");\r",
+							"});\r",
+							"\r",
+							"// Test pour vérifier que l'employé n'existe plus après la suppression\r",
+							"pm.test(\"L'employé ne doit plus être dans la liste\", function (done) {\r",
+							"    var employeeId = 1;\r",
+							"\r",
+							"    // On fait un GET pour vérifier que l'employé n'existe plus\r",
+							"    pm.sendRequest({\r",
+							"        url: `http://localhost:3000/api/employees/${employeeId}`,\r",
+							"        method: 'GET'\r",
+							"    }, function (err, res) {\r",
+							"        // Si une erreur se produit, on l'attrape ici\r",
+							"        if (err) {\r",
+							"            pm.expect(err).to.be.null;  // Fixed the assertion to be.null\r",
+							"        } else {\r",
+							"            // La réponse doit être 404 car l'employé a été supprimé\r",
+							"            pm.expect(res).to.have.status(404, 'L\\'employé a bien été supprimé');  // Changed res.status to res and assertion to .to.have.status\r",
+							"        }\r",
+							"        done();  // Appel de done pour indiquer que le test est terminé\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/api/employees/1"
+			},
+			"response": []
+		}
+	]
+}
