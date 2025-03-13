@@ -15,7 +15,7 @@ Le jeu consiste à contrôler un héros avec des points de vie et des potions. L
 
 2. Exécutez le script :
    ```
-   python jeu_combat.py ou run le code avec VSCODE
+   python jeucombat.py ou run le code avec VSCODE
    ```
 
 ### **Comment jouer ?**
