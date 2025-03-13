@@ -1,0 +1,26 @@
+# 🚀 Jeu de Combat Python
+
+Ce projet est un jeu de combat textuel que j'ai créé en suivant la formation **Udemy de Docstring**.
+
+## 📄 Description
+Le jeu consiste à contrôler un héros avec des points de vie et des potions. Le joueur peut choisir d'attaquer l'ennemi ou d'utiliser une potion pour se soigner. Le but est de vaincre l'ennemi avant de perdre tous ses points de vie.
+
+## 📌 Fonctionnalités :
+- Attaque et défense avec des dégâts aléatoires.
+- Utilisation de potions pour récupérer des points de vie.
+- Combat jusqu'à ce qu'un des deux personnages perde tous ses points de vie.
+
+## 📋 Exécution du jeu :
+1. Clonez le projet :
+   ```bash
+   git clone https://github.com/Bagzy3/jeu-combat-python.git
+   ```
+
+2. Exécutez le script :
+   ```bash
+   python jeu_combat.py
+   ```
+
+### **Comment jouer ?**
+1. Choisissez entre attaquer ou utiliser une potion.
+2. Continuez le combat jusqu'à la victoire ou la défaite.
